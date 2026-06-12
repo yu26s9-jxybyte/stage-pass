@@ -52,13 +52,18 @@ public class BookingService {
         concert.setAvailableSeats(available - requested);
         concertRepository.save(concert);
 
-        // set booking fields
+        // total price using BigDecimal
+        BigDecimal ticketPrice = concert.getTicketPrice();
+        BigDecimal quantity = BigDecimal.valueOf(requested);
+        BigDecimal total = ticketPrice.multiply(quantity);
+
+        booking.setTotalPrice(total);
         booking.setBookingDate(LocalDate.now());
         booking.setConcert(concert);
-        booking.setTotalPrice(BigDecimal.ZERO);
 
         return bookingRepository.save(booking);
     }
+
 
     public boolean cancelBooking(Long id) {
         if (bookingRepository.existsById(id)) {
