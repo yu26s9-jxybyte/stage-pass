@@ -41,12 +41,21 @@ public class BookingService {
         Concert concert = concertRepository.findById(booking.getConcert().getId())
                 .orElseThrow(() -> new RuntimeException("Concert not found"));
 
-        // Compute total price
-        booking.setTotalPrice(BigDecimal.ZERO);
+        int requested = booking.getNumberOfTickets();
+        int available = concert.getAvailableSeats();
 
-        // Set booking date and concert reference
+        if (requested > available) {
+            throw new InsufficientSeatsException("Not enough seats available");
+        }
+
+        // decrement seats
+        concert.setAvailableSeats(available - requested);
+        concertRepository.save(concert);
+
+        // set booking fields
         booking.setBookingDate(LocalDate.now());
         booking.setConcert(concert);
+        booking.setTotalPrice(BigDecimal.ZERO);
 
         return bookingRepository.save(booking);
     }

@@ -24,7 +24,6 @@ public class ConcertService {
     public Optional<Concert> getConcertById(Long id) {
         return concertRepository.findById(id);
     }
-
     public Concert createConcert(Concert concert) {
         return concertRepository.save(concert);
     }
