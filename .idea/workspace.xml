@@ -96,7 +96,7 @@
       </method>
     </configuration>
     <configuration name="StagepassApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="debug-project" />
+      <module name="stagepass" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="nl.pluralsight.stagepass.StagepassApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
